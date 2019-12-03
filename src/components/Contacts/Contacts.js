@@ -15,15 +15,14 @@ class Contacts extends React.Component {
   }
 
 	async getAllContacts() {
-		var contacts = await getAllContacts();
-		return contacts;
+		return await getAllContacts();
 	}
 
 	render() {
 		return(
 			<View>
 				<TouchableOpacity>
-					<ContactsView contacts={ async function(){ return await this.getAllContacts() } }/>
+					<ContactsView contacts={ function(){ return getAllContacts() } }/>
 				</TouchableOpacity>
 			</View>
 		);
