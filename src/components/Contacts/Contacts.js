@@ -35,7 +35,9 @@ class Contacts extends React.Component {
 	}
 
 	render() {
+		const { navigation } = this.props;
 		const { contacts } = this.state;
+
 		return(
 			<View>
 				<FlatList style={ styles.createList}
@@ -43,7 +45,13 @@ class Contacts extends React.Component {
 					initialNumToRender={50}
 					renderItem={ ({ item: { id, name, phone }}) => {
 						return(
-							<Text style={ styles.createListText }> { name } </Text>
+							<TouchableOpacity onPress={() => {
+								navigation.navigate('ContactDetails', {
+									navigation: navigation, id: id, name: name, phone: phone
+								}
+							)}}>
+								<Text style={ styles.createListText }> { name } </Text>
+							</TouchableOpacity>
 						)
 					}}keyExtractor={ contact => contact.name}
 				/>
