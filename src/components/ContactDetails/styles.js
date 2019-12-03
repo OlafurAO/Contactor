@@ -9,17 +9,24 @@ export default StyleSheet.create({
   },
 
 	contactContainer: {
-		alignSelf: 'center',
+		alignItems: 'center',
 		//flexDirection: 'row',
 	},
 
 	contactName: {
-		alignSelf: 'center',
 		fontSize: 20,
 	},
 
 	contactPhone: {
-		alignSelf: 'center',
 
 	},
+
+	deleteContactButton: {
+		backgroundColor: 'black'
+	},
+
+	defaultPic: {
+		width: 100,
+		height: 100,
+	}
 });

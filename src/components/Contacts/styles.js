@@ -19,4 +19,13 @@ export default StyleSheet.create({
 		fontSize: 20,
 	},
 
+	contact: {
+		flexDirection: 'row',
+		padding: 15,
+	},
+
+	defaultPic: {
+		width: 20,
+		height: 20,
+	}
 });
