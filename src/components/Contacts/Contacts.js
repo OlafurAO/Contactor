@@ -24,7 +24,6 @@ class Contacts extends React.Component {
 	async getAllContacts() {
 		try{
 			let contacts = await getAllContacts();
-
 			this.setState({
 				contacts: contacts,
 			});
