@@ -14,6 +14,7 @@ export const initContacts = async() => {
 			id: item.id,
 			name: item.name,
 			phone: item.phone,
+			photo: item.photo,
 		};
 
 		var contactString = JSON.stringify(contact);
@@ -45,12 +46,14 @@ const getOScontacts = async() => {
 					id: contact.id,
 					name: contact.name,
 					phone: contactPhone,
+					photo: contact.photo,
 				});
 			} else {
 				contacts.push({
 					id: contact.id,
 					name: contact.name,
 					phone: '',
+					photo: undefined, 
 				});
 			}
 		}

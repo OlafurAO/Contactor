@@ -42,8 +42,9 @@ class Contacts extends React.Component {
 				<FlatList style={ styles.createList}
 					numColumns={1} data={ contacts }
 					initialNumToRender={50}
-					renderItem={ ({ item: { id, name, phone }}) => {
+					renderItem={ ({ item: { id, name, phone, photo }}) => {
 						return(
+							console.log(photo),
 							<Text style={ styles.createListText }> { name } </Text>
 						)
 					}}keyExtractor={ contact => contact.name}
