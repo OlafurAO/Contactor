@@ -14,7 +14,7 @@ export const initContacts = async() => {
 			id: item.id,
 			name: item.name,
 			phone: item.phone,
-			photo: require('../resources/icons/default_pic.png'),
+			photo: '../resources/icons/default_pic.png',
 		};
 
 		var contactString = JSON.stringify(contact);
@@ -45,7 +45,7 @@ const getOScontacts = async() => {
 				id: contact.id,
 				name: contact.name,
 				phone: contactPhone,
-				photo: require('../resources/icons/default_pic.png'),
+				photo: '../resources/icons/default_pic.png',
 			});
 		}
 		return contacts;

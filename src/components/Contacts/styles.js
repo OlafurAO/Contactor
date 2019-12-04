@@ -29,8 +29,15 @@ export default StyleSheet.create({
 		padding: 15,
 	},
 
-	defaultPic: {
-		width: 20,
-		height: 20,
+	picBorder: {
+		borderRadius: 150/2,
+		borderWidth: 2,
+	},
+
+	profilePic: {
+		width: 30,
+		height: 30,
+		borderRadius: 150/2,
+		borderWidth: 2,
 	}
 });

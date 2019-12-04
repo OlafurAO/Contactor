@@ -25,8 +25,24 @@ export default StyleSheet.create({
 		backgroundColor: 'black'
 	},
 
-	defaultPic: {
+	picBorder: {
+		borderRadius: 150/2,
+		borderWidth: 2,
+	},
+
+	profilePic: {
 		width: 100,
 		height: 100,
+		borderRadius: 150/2,
+		borderWidth: 2,
+	},
+
+	photoOverlay: {
+		position: 'absolute',
+	  width: 100,
+	  height: 100,
+	  alignSelf: 'center',
+		marginTop: 50,
+	  backgroundColor: '#d5e2e8'
 	}
 });

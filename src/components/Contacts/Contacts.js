@@ -15,12 +15,12 @@ class Contacts extends React.Component {
 		}
 	}
 	async componentWillMount() {
-		this.initContacts();
 		this.getAllContacts();
 	}
 
-	async initContacts() {
+	async initOScontacts() {
     await initContacts();
+		await this.getAllContacts();
   }
 
 	async getAllContacts() {
@@ -77,8 +77,6 @@ class Contacts extends React.Component {
 					initialNumToRender={50}
 					extraData={this.state}
 					renderItem={ ({ item: { id, name, phone, photo }}) => {
-						console.log(photo)
-
 						if(searchFilter !== '') {
 							if(name.toLowerCase().search(searchFilter.toLowerCase()) < 0) {
 								return (
@@ -89,11 +87,13 @@ class Contacts extends React.Component {
 						}
 						return(
 							<View style={ styles.contact }>
-								<Image
-								 style={ styles.defaultPic }
-								 resizeMode='cover'
-								 source={photo}
-								 />
+								<View style={ styles.picBorder }>
+									<Image
+									 style={ styles.profilePic }
+									 resizeMode='cover'
+									 source={{uri: photo }}
+									 />
+								</View>
 
 								<TouchableOpacity onPress={() => {
 									navigation.navigate('ContactDetails', {
@@ -108,6 +108,10 @@ class Contacts extends React.Component {
 						)
 					}}keyExtractor={ contact => contact.name}
 				/>
+				<TouchableOpacity onPress={ () => this.initOScontacts() }>
+					<Text> Import OS contacts </Text>
+				</TouchableOpacity>
+
 				<TouchableOpacity onPress={ () => this.deleteAllContacts() }>
 					<Text> Delete All Contacts </Text>
 				</TouchableOpacity>
