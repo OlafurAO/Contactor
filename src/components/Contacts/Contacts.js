@@ -78,7 +78,7 @@ class Contacts extends React.Component {
 					extraData={this.state}
 					renderItem={ ({ item: { id, name, phone, photo }}) => {
 						if(searchFilter !== '') {
-							if(name.search(searchFilter) < 0) {
+							if(name.toLowerCase().search(searchFilter.toLowerCase()) < 0) {
 								return (
 									<View>
 									</View>
