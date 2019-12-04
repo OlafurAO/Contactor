@@ -14,7 +14,11 @@ export const initContacts = async() => {
 			id: item.id,
 			name: item.name,
 			phone: item.phone,
+<<<<<<< HEAD
 			photo: item.photo,
+=======
+			photo: 'unavailable',
+>>>>>>> 8b196c6a57ae21e10f7d49394e8a656e810aa77c
 		};
 
 		var contactString = JSON.stringify(contact);
@@ -35,11 +39,12 @@ const getOScontacts = async() => {
 		contacts = [];
 		for(var i = 0; i < data.length; i++) {
 			var contact = data[i];
-
 			var contactPhone = null;
+
 			if(contact.phoneNumbers !== undefined) {
 				contactPhone = contact.phoneNumbers[0].number;
 			}
+
 
 			if(contactPhone !== null) {
 				contacts.push({
@@ -53,7 +58,7 @@ const getOScontacts = async() => {
 					id: contact.id,
 					name: contact.name,
 					phone: '',
-					photo: undefined, 
+					photo: undefined,
 				});
 			}
 		}
@@ -63,21 +68,73 @@ const getOScontacts = async() => {
 
 export const getAllContacts = async() => {
 	const path = FileSystem.documentDirectory;
-	var files = await FileSystem.readDirectoryAsync(path);
+	const files = await FileSystem.readDirectoryAsync(path);
 
 	let contacts = await Promise.all(files.map(async item => {
 		var contact = await FileSystem.readAsStringAsync(path + item, {
 			encoding: FileSystem.EncodingType.UTF8
 		});
+
 		contact = JSON.parse(contact)
 		return contact;
-	}))
-
+	}));
 	return contacts;
 }
 
+export async function modifyContact(id, name, phone, photo) {
+	const path = FileSystem.documentDirectory;
+	const files = await FileSystem.readDirectoryAsync(path);
+
+	let contacts = await Promise.all(files.map(async item => {
+		const contactPath = path + item;
+		var contact = await FileSystem.readAsStringAsync(contactPath, {
+			encoding: FileSystem.EncodingType.UTF8
+		});
+
+		contact = JSON.parse(contact)
+		if(contact.id === id) {
+			var newContact = {
+				id: id,
+				name: name,
+				phone: phone,
+				photo: photo,
+			};
+
+			var contactString = JSON.stringify(newContact);
+			await FileSystem.writeAsStringAsync(contactPath, contactString, {
+				encoding: FileSystem.EncodingType.UTF8
+			});
+		}
+	}));
+}
+
 export async function deleteContact(id) {
-	await FileSystem.deleteAsync(contactPath,  {
-		idempotent: true
-	});
+	const path = FileSystem.documentDirectory;
+	const files = await FileSystem.readDirectoryAsync(path);
+
+	let contacts = await Promise.all(files.map(async item => {
+		const contactPath = path + item;
+		var contact = await FileSystem.readAsStringAsync(contactPath, {
+			encoding: FileSystem.EncodingType.UTF8
+		});
+
+		contact = JSON.parse(contact)
+		if(contact.id === id) {
+			await FileSystem.deleteAsync(contactPath,  {
+				idempotent: true
+			});
+		}
+	}));
+}
+
+export async function deleteAllContacts() {
+	const path = FileSystem.documentDirectory;
+	const files = await FileSystem.readDirectoryAsync(path);
+
+	let contacts = await Promise.all(files.map(async item => {
+		const contactPath = path + item;
+		await FileSystem.deleteAsync(contactPath,  {
+			idempotent: true
+		});
+	}));
 }
