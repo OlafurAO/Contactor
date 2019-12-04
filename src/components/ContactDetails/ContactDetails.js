@@ -56,12 +56,12 @@ class ContactDetails extends React.Component {
 
 		return(
 			<View style={ styles.contactContainer }>
-				{ this.state.photo === 'unavailable' ?
+				{ this.state.photo === 'unavailable' || this.state.photo === undefined ?
 				<Image
 				 style={ styles.defaultPic }
 				 resizeMode='cover'
 				 source={ require('../../resources/icons/default_pic.png') }
-				/>: null }
+				/>: console.log(this.state.photo) }
 
 				<TouchableOpacity>
 					<TextInput style={ styles.contactName }
