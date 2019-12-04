@@ -53,15 +53,16 @@ class ContactDetails extends React.Component {
 	render() {
 		const { navigation } = this.props;
 		const id = navigation.getParam('id');
+		const photo = navigation.getParam('photo');
+		console.log(photo)
 
 		return(
 			<View style={ styles.contactContainer }>
-				{ this.state.photo === 'unavailable' || this.state.photo === undefined ?
 				<Image
 				 style={ styles.defaultPic }
 				 resizeMode='cover'
-				 source={ require('../../resources/icons/default_pic.png') }
-				/>: console.log(this.state.photo) }
+				 source={ photo }
+				/>
 
 				<TouchableOpacity>
 					<TextInput style={ styles.contactName }
@@ -87,7 +88,6 @@ class ContactDetails extends React.Component {
 				<TouchableOpacity onPress={ () => this.submitContactModification(id, navigation)}>
 					<Text> Update </Text>
 				</TouchableOpacity>
-
 			</View>
 		);
 	}

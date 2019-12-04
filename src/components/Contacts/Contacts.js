@@ -77,6 +77,8 @@ class Contacts extends React.Component {
 					initialNumToRender={50}
 					extraData={this.state}
 					renderItem={ ({ item: { id, name, phone, photo }}) => {
+						console.log(photo)
+
 						if(searchFilter !== '') {
 							if(name.toLowerCase().search(searchFilter.toLowerCase()) < 0) {
 								return (
@@ -87,12 +89,11 @@ class Contacts extends React.Component {
 						}
 						return(
 							<View style={ styles.contact }>
-								{ photo === 'unavailable' ?
 								<Image
 								 style={ styles.defaultPic }
 								 resizeMode='cover'
-								 source={ require('../../resources/icons/default_pic.png') }
-								/>: null }
+								 source={photo}
+								 />
 
 								<TouchableOpacity onPress={() => {
 									navigation.navigate('ContactDetails', {
