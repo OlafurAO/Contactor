@@ -5,11 +5,16 @@ export default StyleSheet.create({
     flex: 1,
     backgroundColor: '#252c38',
     justifyContent: 'center',
+		backgroundColor: '#FFA500',
   },
+
+	inputBox: {
+		backgroundColor: '#fff',
+	},
 
 	createList: {
 		marginBottom: 'auto',
-		backgroundColor: '#FFA500',
+
 		padding: 15,
 	},
 

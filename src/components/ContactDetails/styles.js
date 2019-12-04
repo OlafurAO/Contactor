@@ -10,7 +10,7 @@ export default StyleSheet.create({
 
 	contactContainer: {
 		alignItems: 'center',
-		//flexDirection: 'row',
+		padding: 20,
 	},
 
 	contactName: {

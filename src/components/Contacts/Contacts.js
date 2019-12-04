@@ -3,7 +3,7 @@ import { View, Text, TouchableOpacity, FlatList, TextInput, Image } from 'react-
 import FileSystem from 'expo-file-system';
 
 import ContactsView from '../../views/ContactsView';
-import { getAllContacts, writeContacts, initContacts } from '../../services/contactService.js';
+import { getAllContacts, writeContacts, initContacts, deleteAllContacts } from '../../services/contactService.js';
 import styles from './styles.js'
 
 class Contacts extends React.Component {
@@ -39,6 +39,17 @@ class Contacts extends React.Component {
     }
 	}
 
+	async deleteAllContacts() {
+		try{
+			await deleteAllContacts()
+			this.setState({
+				contacts: '',
+			});
+		} catch(error) {
+			console.log(error.message);
+		}
+	}
+
 	updateSearchFilter(text) {
 		this.setState({
 			searchFilter: text,
@@ -52,7 +63,7 @@ class Contacts extends React.Component {
 		const { searchFilter } = this.state;
 
 		return(
-			<View>
+			<View style={ styles.container }>
 				<TextInput style={ styles.inputBox }
 					value={ this.state.searchFilter }
 					onChangeText={ title => this.updateSearchFilter(title) }
@@ -96,6 +107,9 @@ class Contacts extends React.Component {
 						)
 					}}keyExtractor={ contact => contact.name}
 				/>
+				<TouchableOpacity onPress={ () => this.deleteAllContacts() }>
+					<Text> Delete All Contacts </Text>
+				</TouchableOpacity>
 			</View>
 		);
 	}

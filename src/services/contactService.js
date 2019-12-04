@@ -67,6 +67,33 @@ export const getAllContacts = async() => {
 	return contacts;
 }
 
+export async function modifyContact(id, name, phone, photo) {
+	const path = FileSystem.documentDirectory;
+	const files = await FileSystem.readDirectoryAsync(path);
+
+	let contacts = await Promise.all(files.map(async item => {
+		const contactPath = path + item;
+		var contact = await FileSystem.readAsStringAsync(contactPath, {
+			encoding: FileSystem.EncodingType.UTF8
+		});
+
+		contact = JSON.parse(contact)
+		if(contact.id === id) {
+			var newContact = {
+				id: id,
+				name: name,
+				phone: phone,
+				photo: photo,
+			};
+
+			var contactString = JSON.stringify(newContact);
+			await FileSystem.writeAsStringAsync(contactPath, contactString, {
+				encoding: FileSystem.EncodingType.UTF8
+			});
+		}
+	}));
+}
+
 export async function deleteContact(id) {
 	const path = FileSystem.documentDirectory;
 	const files = await FileSystem.readDirectoryAsync(path);
@@ -83,5 +110,17 @@ export async function deleteContact(id) {
 				idempotent: true
 			});
 		}
+	}));
+}
+
+export async function deleteAllContacts() {
+	const path = FileSystem.documentDirectory;
+	const files = await FileSystem.readDirectoryAsync(path);
+
+	let contacts = await Promise.all(files.map(async item => {
+		const contactPath = path + item;
+		await FileSystem.deleteAsync(contactPath,  {
+			idempotent: true
+		});
 	}));
 }
