@@ -14,11 +14,8 @@ export const initContacts = async() => {
 			id: item.id,
 			name: item.name,
 			phone: item.phone,
-<<<<<<< HEAD
 			photo: item.photo,
-=======
-			photo: 'unavailable',
->>>>>>> 8b196c6a57ae21e10f7d49394e8a656e810aa77c
+			
 		};
 
 		var contactString = JSON.stringify(contact);
