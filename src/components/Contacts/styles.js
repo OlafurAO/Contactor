@@ -8,13 +8,30 @@ export default StyleSheet.create({
 		backgroundColor: '#FFA500',
   },
 
+	toolBar: {
+		backgroundColor: 'black',
+		height: 60,
+		flexDirection: 'row',
+	},
+
 	inputBox: {
 		backgroundColor: '#fff',
+		height: 60,
+		width: 280,
+	},
+
+	dropDownContainer: {
+		justifyContent: 'center',
+		marginLeft: 'auto',
+	},
+
+	dropDown: {
+		width: 50,
+		height: 50,
 	},
 
 	createList: {
 		marginBottom: 'auto',
-
 		padding: 15,
 	},
 
@@ -29,8 +46,15 @@ export default StyleSheet.create({
 		padding: 15,
 	},
 
-	defaultPic: {
-		width: 20,
-		height: 20,
+	picBorder: {
+		borderRadius: 150/2,
+		borderWidth: 2,
+	},
+
+	profilePic: {
+		width: 30,
+		height: 30,
+		borderRadius: 150/2,
+		borderWidth: 2,
 	}
 });
