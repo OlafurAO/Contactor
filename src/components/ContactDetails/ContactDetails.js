@@ -82,8 +82,6 @@ class ContactDetails extends React.Component {
 		const photo = navigation.getParam('photo');
 		const customPhotoAvailable = navigation.getParam('customPhotoAvailable');
 
-		console.log(photo);
-
 		return(
 			<View style={ styles.contactContainer }>
 				<TouchableOpacity onPress={ () => this.modifyContactPhoto() } >

@@ -2,9 +2,9 @@ import React from 'react';
 import { View, Text, TouchableOpacity, FlatList, TextInput, Image } from 'react-native';
 import FileSystem from 'expo-file-system';
 
-import ContactsView from '../../views/ContactsView';
+import CreateContact from '../CreateContact/CreateContact';
 import { getAllContacts, writeContacts, initContacts, deleteAllContacts } from '../../services/contactService.js';
-import styles from './styles.js'
+import styles from './styles.js';
 
 class Contacts extends React.Component {
 	constructor(props) {
@@ -58,10 +58,6 @@ class Contacts extends React.Component {
 		this.forceUpdate();
 	}
 
-	createContact() {
-		
-	}
-
 	toggleDropdown() {
 		this.setState({
 			dropDownToggled: this.state.dropDownToggled ? false : true,
@@ -85,7 +81,7 @@ class Contacts extends React.Component {
 						fontColor={ 'black' }
 					/>
 					<TouchableOpacity style={ styles.createContactContainer } onPress={
-						() => this.createContact() }>
+						() => { navigation.navigate('CreateContact', { navigation: navigation }) } }>
 						<Image
 							style={ styles.createContact }
 							resizeMode='cover'
