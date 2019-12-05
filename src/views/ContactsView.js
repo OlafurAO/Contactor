@@ -2,7 +2,6 @@ import React from 'react';
 import { View, Text, FlatList, StyleSheet } from 'react-native';
 
 const ContactsView = (contacts) => {
-	console.log(contacts)
 
 	return (
 		<View>

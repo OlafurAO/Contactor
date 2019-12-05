@@ -59,7 +59,7 @@ class Contacts extends React.Component {
 	}
 
 	createContact() {
-		
+
 	}
 
 	toggleDropdown() {
@@ -105,8 +105,9 @@ class Contacts extends React.Component {
 				<FlatList style={ styles.createList}
 					numColumns={1} data={ contacts }
 					initialNumToRender={50}
+
 					extraData={this.state}
-					renderItem={ ({ item: { id, name, phone, photo, customPhotoAvailable }}) => {
+					renderItem={ ({ item: { id, name, phone, photo }}) => {
 						if(searchFilter !== '') {
 							if(name.toLowerCase().search(searchFilter.toLowerCase()) < 0) {
 								return (
@@ -116,13 +117,15 @@ class Contacts extends React.Component {
 							}
 						}
 						return(
+
 							<View style={ styles.contact }>
+
 								<View style={ styles.picBorder }>
-									{!customPhotoAvailable ?
+									{photo === undefined ?
 									<Image
 										style={ styles.profilePic }
 										resizeMode='cover'
-										source={ photo }
+										source={ require('../../resources/icons/default_pic.png') }
 									/>
 									:
 									<Image
@@ -136,7 +139,6 @@ class Contacts extends React.Component {
 									navigation.navigate('ContactDetails', {
 										navigation: navigation, id: id,
 										name: name, phone: phone, photo: photo,
-										customPhotoAvailable: customPhotoAvailable,
 										updateContacts: () => this.getAllContacts()
 									}
 								)}}>
