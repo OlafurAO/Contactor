@@ -14,7 +14,8 @@ export const initContacts = async() => {
 			id: item.id,
 			name: item.name,
 			phone: item.phone,
-			photo: '../resources/icons/default_pic.png',
+			photo: require('../resources/icons/default_pic.png'),
+			customPhotoAvailable: false,
 		};
 
 		var contactString = JSON.stringify(contact);
@@ -45,8 +46,11 @@ const getOScontacts = async() => {
 				id: contact.id,
 				name: contact.name,
 				phone: contactPhone,
-				photo: '../resources/icons/default_pic.png',
+				photo: require('../resources/icons/default_pic.png'),
+				customPhotoAvailable: false,
 			});
+
+			console.log('REQUIRE: ' + require('../resources/icons/default_pic.png'))
 		}
 		return contacts;
 	}
@@ -67,7 +71,8 @@ export const getAllContacts = async() => {
 	return contacts;
 }
 
-export async function modifyContact(id, name, phone, photo) {
+export async function modifyContact(id, name, phone, photo, modifyPhoto) {
+	console.log(photo);
 	const path = FileSystem.documentDirectory;
 	const files = await FileSystem.readDirectoryAsync(path);
 
@@ -84,6 +89,7 @@ export async function modifyContact(id, name, phone, photo) {
 				name: name,
 				phone: phone,
 				photo: photo,
+				customPhotoAvailable: modifyPhoto ? true : false
 			};
 
 			var contactString = JSON.stringify(newContact);

@@ -57,6 +57,10 @@ class Contacts extends React.Component {
 		this.forceUpdate();
 	}
 
+	toggleDropdown() {
+
+	}
+
 	render() {
 		const { navigation } = this.props;
 		const { contacts } = this.state;
@@ -64,19 +68,28 @@ class Contacts extends React.Component {
 
 		return(
 			<View style={ styles.container }>
-				<TextInput style={ styles.inputBox }
-					value={ this.state.searchFilter }
-					onChangeText={ title => this.updateSearchFilter(title) }
-					placeholder='Search for contacts'
-					placeholderTextColor={ 'black' }
-					fontColor={ 'black' }
-				/>
+				<View style={ styles.toolBar }>
+					<TextInput style={ styles.inputBox }
+						value={ this.state.searchFilter }
+						onChangeText={ title => this.updateSearchFilter(title) }
+						placeholder='Search for contacts'
+						placeholderTextColor={ 'black' }
+						fontColor={ 'black' }
+					/>
+					<TouchableOpacity style={ styles.dropDownContainer } onPress={ () => this.toggleDropdown() }>
+						<Image
+							style={ styles.dropDown }
+							resizeMode='cover'
+							source={ require('../../resources/icons/dropdown.png') }
+						/>
+					</TouchableOpacity>
+				</View>
 
 				<FlatList style={ styles.createList}
 					numColumns={1} data={ contacts }
 					initialNumToRender={50}
 					extraData={this.state}
-					renderItem={ ({ item: { id, name, phone, photo }}) => {
+					renderItem={ ({ item: { id, name, phone, photo, customPhotoAvailable }}) => {
 						if(searchFilter !== '') {
 							if(name.toLowerCase().search(searchFilter.toLowerCase()) < 0) {
 								return (
@@ -87,18 +100,26 @@ class Contacts extends React.Component {
 						}
 						return(
 							<View style={ styles.contact }>
-								<View style={ styles.picBorder }>
-									<Image
-									 style={ styles.profilePic }
-									 resizeMode='cover'
-									 source={{uri: photo }}
-									 />
-								</View>
+							<View style={ styles.picBorder }>
+								{!customPhotoAvailable ?
+								<Image
+									style={ styles.profilePic }
+									resizeMode='cover'
+									source={ require('../../resources/icons/default_pic.png') }
+								/>
+								:
+								<Image
+									style={ styles.profilePic }
+									resizeMode='cover'
+									source={{uri: photo }}
+								/>}
+							</View>
 
 								<TouchableOpacity onPress={() => {
 									navigation.navigate('ContactDetails', {
 										navigation: navigation, id: id,
 										name: name, phone: phone, photo: photo,
+										customPhotoAvailable: customPhotoAvailable,
 										updateContacts: () => this.getAllContacts()
 									}
 								)}}>
@@ -111,7 +132,6 @@ class Contacts extends React.Component {
 				<TouchableOpacity onPress={ () => this.initOScontacts() }>
 					<Text> Import OS contacts </Text>
 				</TouchableOpacity>
-
 				<TouchableOpacity onPress={ () => this.deleteAllContacts() }>
 					<Text> Delete All Contacts </Text>
 				</TouchableOpacity>

@@ -60,11 +60,12 @@ class ContactDetails extends React.Component {
 		const { newName } = this.state;
 		const { newPhone } = this.state;
 		const { newPhoto } = this.state;
+		const { modifyPhoto } = this.state;
 		this.props.name = newName;
 		this.props.phone = newPhone;
 		this.props.photo = newPhoto;
 
-		await modifyContact(id, newName, newPhone, newPhoto);
+		await modifyContact(id, newName, newPhone, newPhoto, modifyPhoto);
 		await updateContacts();
 	}
 
@@ -79,16 +80,26 @@ class ContactDetails extends React.Component {
 		const { navigation } = this.props;
 		const id = navigation.getParam('id');
 		const photo = navigation.getParam('photo');
+		const customPhotoAvailable = navigation.getParam('customPhotoAvailable');
+
+		console.log(photo);
 
 		return(
 			<View style={ styles.contactContainer }>
 				<TouchableOpacity onPress={ () => this.modifyContactPhoto() } >
 					<View style={ styles.picBorder }>
+						{!customPhotoAvailable ?
 						<Image
-						 style={ styles.profilePic }
-						 resizeMode='cover'
-						 source={{uri: photo }}
-						 />
+							style={ styles.profilePic }
+							resizeMode='cover'
+							source={ photo }
+						/>
+						:
+						<Image
+							style={ styles.profilePic }
+							resizeMode='cover'
+							source={{uri: photo }}
+						/>}
 					</View>
 				</TouchableOpacity>
 
