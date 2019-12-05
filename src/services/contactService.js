@@ -42,24 +42,6 @@ const getOScontacts = async() => {
 				contactPhone = contact.phoneNumbers[0].number;
 			}
 
-<<<<<<< HEAD
-
-			if(contactPhone !== null) {
-				contacts.push({
-					id: contact.id,
-					name: contact.name,
-					phone: contactPhone,
-					photo: contact.photo,
-				});
-			} else {
-				contacts.push({
-					id: contact.id,
-					name: contact.name,
-					phone: '',
-					photo: undefined,
-				});
-			}
-=======
 			contacts.push({
 				id: contact.id,
 				name: contact.name,
@@ -69,7 +51,6 @@ const getOScontacts = async() => {
 			});
 
 			console.log('REQUIRE: ' + require('../resources/icons/default_pic.png'))
->>>>>>> 712b85f5630b2c8923280d308ae6b623e75d44ac
 		}
 		return contacts;
 	}
@@ -91,6 +72,7 @@ export const getAllContacts = async() => {
 }
 
 export async function modifyContact(id, name, phone, photo, modifyPhoto) {
+	console.log('stefan');
 	console.log(photo);
 	const path = FileSystem.documentDirectory;
 	const files = await FileSystem.readDirectoryAsync(path);

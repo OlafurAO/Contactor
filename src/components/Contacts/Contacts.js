@@ -91,6 +91,7 @@ class Contacts extends React.Component {
 
 					extraData={this.state}
 					renderItem={ ({ item: { id, name, phone, photo, customPhotoAvailable }}) => {
+						console.log(photo); 
 						if(searchFilter !== '') {
 							if(name.toLowerCase().search(searchFilter.toLowerCase()) < 0) {
 								return (
@@ -100,13 +101,14 @@ class Contacts extends React.Component {
 							}
 						}
 						return(
+
 							<View style={ styles.contact }>
 							<View style={ styles.picBorder }>
 								{!customPhotoAvailable ?
 								<Image
 									style={ styles.profilePic }
 									resizeMode='cover'
-									source={ require('../../resources/icons/default_pic.png') }
+									source={ photo }
 								/>
 								:
 								<Image
