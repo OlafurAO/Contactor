@@ -66,7 +66,6 @@ class Contacts extends React.Component {
 		this.setState({
 			dropDownToggled: this.state.dropDownToggled ? false : true,
 		});
-		console.log(this.state.dropDownToggled)
 	}
 
 	render() {

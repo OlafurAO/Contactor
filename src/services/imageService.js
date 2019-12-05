@@ -7,7 +7,20 @@ const getPermissions = async permissionTypes => {
 	));
 }
 
-export const selectFromCameraRoll = async () => {
+export const importPhoto = async () => {
+	await getPermissions([ Permission.CAMERA_ROLL]);
+	const result = await ImagePicker.launchImageLibraryAsync({
+		mediaTypes: ImagePicker.MediaTypeOptions.Images,
+		quality: 0.8,
+		base64: true,
+		aspect: [16, 9]
+	});
+
+	if(result.cancelled) {
+		return 'uri not found';
+	} else {
+		return result.uri;
+	}
 
 };
 
