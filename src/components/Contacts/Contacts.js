@@ -12,6 +12,7 @@ class Contacts extends React.Component {
 		this.state = {
 			contacts: '',
 			searchFilter: '',
+			dropDownToggled: false,
 		}
 	}
 	async componentWillMount() {
@@ -27,7 +28,7 @@ class Contacts extends React.Component {
 		try{
 			let contacts = await getAllContacts();
 			contacts = contacts.sort((a, b) => {
-				return a.name < b.name;
+				return a.name > b.name;
 			});
 			this.setState({
 				contacts: contacts,
@@ -57,8 +58,15 @@ class Contacts extends React.Component {
 		this.forceUpdate();
 	}
 
-	toggleDropdown() {
+	createContact() {
 
+	}
+
+	toggleDropdown() {
+		this.setState({
+			dropDownToggled: this.state.dropDownToggled ? false : true,
+		});
+		console.log(this.state.dropDownToggled)
 	}
 
 	render() {
@@ -76,7 +84,16 @@ class Contacts extends React.Component {
 						placeholderTextColor={ 'black' }
 						fontColor={ 'black' }
 					/>
-					<TouchableOpacity style={ styles.dropDownContainer } onPress={ () => this.toggleDropdown() }>
+					<TouchableOpacity style={ styles.createContactContainer } onPress={
+						() => this.createContact() }>
+						<Image
+							style={ styles.createContact }
+							resizeMode='cover'
+							source={ require('../../resources/icons/plus.png') }
+						/>
+					</TouchableOpacity>
+					<TouchableOpacity style={ styles.dropDownContainer } onPress={
+						() => this.toggleDropdown() }>
 						<Image
 							style={ styles.dropDown }
 							resizeMode='cover'
@@ -91,7 +108,7 @@ class Contacts extends React.Component {
 
 					extraData={this.state}
 					renderItem={ ({ item: { id, name, phone, photo, customPhotoAvailable }}) => {
-						console.log(photo); 
+						console.log(photo);
 						if(searchFilter !== '') {
 							if(name.toLowerCase().search(searchFilter.toLowerCase()) < 0) {
 								return (
@@ -103,20 +120,21 @@ class Contacts extends React.Component {
 						return(
 
 							<View style={ styles.contact }>
-							<View style={ styles.picBorder }>
-								{!customPhotoAvailable ?
-								<Image
-									style={ styles.profilePic }
-									resizeMode='cover'
-									source={ photo }
-								/>
-								:
-								<Image
-									style={ styles.profilePic }
-									resizeMode='cover'
-									source={{uri: photo }}
-								/>}
-							</View>
+
+								<View style={ styles.picBorder }>
+									{!customPhotoAvailable ?
+									<Image
+										style={ styles.profilePic }
+										resizeMode='cover'
+										source={ photo }
+									/>
+									:
+									<Image
+										style={ styles.profilePic }
+										resizeMode='cover'
+										source={{uri: photo }}
+									/>}
+								</View>
 
 								<TouchableOpacity onPress={() => {
 									navigation.navigate('ContactDetails', {
@@ -132,12 +150,15 @@ class Contacts extends React.Component {
 						)
 					}}keyExtractor={ contact => contact.name}
 				/>
-				<TouchableOpacity onPress={ () => this.initOScontacts() }>
-					<Text> Import OS contacts </Text>
-				</TouchableOpacity>
-				<TouchableOpacity onPress={ () => this.deleteAllContacts() }>
-					<Text> Delete All Contacts </Text>
-				</TouchableOpacity>
+				{ this.state.dropDownToggled ?
+					<View style={ styles.dropDownList }>
+						<TouchableOpacity onPress={ () => this.initOScontacts() }>
+							<Text style={ styles.dropDownListItems }> Import OS contacts </Text>
+						</TouchableOpacity>
+						<TouchableOpacity onPress={ () => this.deleteAllContacts() }>
+							<Text style={ styles.dropDownListItems }> Delete All Contacts </Text>
+						</TouchableOpacity>
+					</View> : null }
 			</View>
 		);
 	}
