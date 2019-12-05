@@ -29,14 +29,12 @@ class ContactDetails extends React.Component {
 	}
 
 	async modifyContactPhoto() {
-		console.log('open')
 		this.setState({
 			modifyPhoto: true,
 		});
 	}
 
 	cancelModifyContactPhoto() {
-		console.log('close')
 		this.setState({
 			modifyPhoto: false,
 		});
@@ -80,17 +78,17 @@ class ContactDetails extends React.Component {
 		const { navigation } = this.props;
 		const id = navigation.getParam('id');
 		const photo = navigation.getParam('photo');
-		const customPhotoAvailable = navigation.getParam('customPhotoAvailable');
 
 		return(
+			<View style={ styles.container}>
 			<View style={ styles.contactContainer }>
 				<TouchableOpacity onPress={ () => this.modifyContactPhoto() } >
 					<View style={ styles.picBorder }>
-						{!customPhotoAvailable ?
+						{!photo !== undefined ?
 						<Image
 							style={ styles.profilePic }
 							resizeMode='cover'
-							source={ photo }
+							source={ require('../../resources/icons/default_pic.png') }
 						/>
 						:
 						<Image
@@ -120,10 +118,10 @@ class ContactDetails extends React.Component {
 					/>
 				</TouchableOpacity>
 				<TouchableOpacity onPress={ () => this.deleteContact(id, navigation)}>
-					<Text> Delete Contact </Text>
+					<Text style ={ styles.textStyle}> Delete Contact </Text>
 				</TouchableOpacity>
 				<TouchableOpacity onPress={ () => this.submitContactModification(id, navigation)}>
-					<Text> Update </Text>
+					<Text style ={ styles.textStyle}> Update </Text>
 				</TouchableOpacity>
 
 				{ this.state.modifyPhoto ?
@@ -137,6 +135,7 @@ class ContactDetails extends React.Component {
 						</TouchableOpacity>
 					</View>
 				: null}
+			</View>
 			</View>
 		);
 	}

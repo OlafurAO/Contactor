@@ -4,25 +4,30 @@ export default StyleSheet.create({
 	container: {
     flex: 1,
     backgroundColor: '#252c38',
-    justifyContent: 'center',
-		alignItems: 'center',
+    //justifyContent: 'center',
+		alignItems: 'stretch',
   },
 
 	contactContainer: {
 		alignItems: 'center',
 		padding: 20,
+		backgroundColor: '#2F4F4F'
+
 	},
 
 	contactName: {
 		fontSize: 20,
+		color: '#C0C0C0',
 	},
 
 	contactPhone: {
-
+		color: '#C0C0C0',
 	},
 
 	deleteContactButton: {
-		backgroundColor: 'black'
+		backgroundColor: 'black',
+		color: '#C0C0C0',
+
 	},
 
 	picBorder: {
@@ -44,5 +49,9 @@ export default StyleSheet.create({
 	  alignSelf: 'center',
 		marginTop: 50,
 	  backgroundColor: '#d5e2e8'
+	},
+
+	textStyle:{
+		color: '#C0C0C0',
 	}
 });
