@@ -12,12 +12,14 @@ export default StyleSheet.create({
 		backgroundColor: 'black',
 		height: 60,
 		flexDirection: 'row',
+		borderBottomWidth: 2,
 	},
 
 	inputBox: {
 		backgroundColor: '#fff',
 		height: 60,
-		width: 280,
+		width: 250,
+		borderBottomWidth: 2,
 	},
 
 	dropDownContainer: {
@@ -56,5 +58,31 @@ export default StyleSheet.create({
 		height: 30,
 		borderRadius: 150/2,
 		borderWidth: 2,
-	}
+	},
+
+	dropDownList: {
+		position: 'absolute',
+		backgroundColor: 'black',
+		right: 0,
+		top: 60,
+		width: 200,
+		height: 200,
+	},
+
+	dropDownListItems: {
+		color: 'white',
+		padding: 10,
+	},
+
+	createContactContainer: {
+		justifyContent: 'center',
+		marginLeft: 'auto',
+		alignItems: 'center',
+		width: 50,
+	},
+
+	createContact: {
+		width: 20,
+		height: 20,
+	},
 });
