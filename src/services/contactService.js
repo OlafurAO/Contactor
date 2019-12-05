@@ -68,6 +68,22 @@ export const getAllContacts = async() => {
 	return contacts;
 }
 
+export async function createContact(id, name, phone, photo, modifyPhoto) {
+	const path = FileSystem.documentDirectory;
+	var newContact = {
+		id: id,
+		name: name,
+		phone: phone,
+		photo: photo,
+	};
+	var contactString = JSON.stringify(newContact);
+	var contactPath = path + (name + '.json').replace(/\s+/g, '-').toLowerCase();
+
+	await FileSystem.writeAsStringAsync(contactPath, contactString, {
+		encoding: FileSystem.EncodingType.UTF8
+	});
+}
+
 export async function modifyContact(id, name, phone, photo, modifyPhoto) {
 	const path = FileSystem.documentDirectory;
 	const files = await FileSystem.readDirectoryAsync(path);
@@ -124,4 +140,21 @@ export async function deleteAllContacts() {
 			idempotent: true
 		});
 	}));
+}
+
+export async function findAvailableId() {
+	const path = FileSystem.documentDirectory;
+	const files = await FileSystem.readDirectoryAsync(path);
+
+	let ids = await Promise.all(files.map(async item => {
+		const contactPath = path + item;
+		var contact = await FileSystem.readAsStringAsync(contactPath, {
+			encoding: FileSystem.EncodingType.UTF8
+		});
+		contact = JSON.parse(contact)
+		return contact.id;
+	}));
+
+	const maxId = Math.max.apply(Math, ids);
+	return maxId + 1;
 }
