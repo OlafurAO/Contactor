@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, Text, TouchableOpacity, Image, TextInput } from 'react-native';
 import { deleteContact, modifyContact } from '../../services/contactService.js';
-import { takePhoto } from '../../services/imageService.js';
+import { takePhoto, importPhoto } from '../../services/imageService.js';
 import styles from './styles.js'
 
 class ContactDetails extends React.Component {
@@ -40,7 +40,13 @@ class ContactDetails extends React.Component {
 		});
 	}
 
-	importPhoto() {
+	async importPhoto() {
+		let photoURI = await importPhoto();
+		this.props.newPhoto = photoURI;
+		this.setState({
+			newPhoto: photoURI,
+		});
+		this.forceUpdate();
 
 	}
 
@@ -85,7 +91,7 @@ class ContactDetails extends React.Component {
 			<View style={ styles.contactContainer }>
 				<TouchableOpacity onPress={ () => this.modifyContactPhoto() } >
 					<View style={ styles.picBorder }>
-						{!photo !== undefined ?
+						{!photo === undefined ?
 						<Image
 							style={ styles.profilePic }
 							resizeMode='cover'
