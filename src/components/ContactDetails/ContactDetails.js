@@ -85,6 +85,7 @@ class ContactDetails extends React.Component {
 		console.log(photo);
 
 		return(
+			<View style={ styles.container}>
 			<View style={ styles.contactContainer }>
 				<TouchableOpacity onPress={ () => this.modifyContactPhoto() } >
 					<View style={ styles.picBorder }>
@@ -122,10 +123,10 @@ class ContactDetails extends React.Component {
 					/>
 				</TouchableOpacity>
 				<TouchableOpacity onPress={ () => this.deleteContact(id, navigation)}>
-					<Text> Delete Contact </Text>
+					<Text style ={ styles.textStyle}> Delete Contact </Text>
 				</TouchableOpacity>
 				<TouchableOpacity onPress={ () => this.submitContactModification(id, navigation)}>
-					<Text> Update </Text>
+					<Text style ={ styles.textStyle}> Update </Text>
 				</TouchableOpacity>
 
 				{ this.state.modifyPhoto ?
@@ -139,6 +140,7 @@ class ContactDetails extends React.Component {
 						</TouchableOpacity>
 					</View>
 				: null}
+			</View>
 			</View>
 		);
 	}

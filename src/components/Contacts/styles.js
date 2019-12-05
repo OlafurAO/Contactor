@@ -5,7 +5,7 @@ export default StyleSheet.create({
     flex: 1,
     backgroundColor: '#252c38',
     justifyContent: 'center',
-		backgroundColor: '#FFA500',
+		backgroundColor: '#2F4F4F',
   },
 
 	toolBar: {
@@ -13,6 +13,7 @@ export default StyleSheet.create({
 		height: 60,
 		flexDirection: 'row',
 		borderBottomWidth: 2,
+
 	},
 
 	inputBox: {
@@ -38,7 +39,7 @@ export default StyleSheet.create({
 	},
 
 	createListText: {
-		color: '#fff',
+		color: '#C0C0C0',
 		alignSelf: 'flex-start',
 		fontSize: 20,
 	},
