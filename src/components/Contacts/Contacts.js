@@ -107,8 +107,7 @@ class Contacts extends React.Component {
 					initialNumToRender={50}
 
 					extraData={this.state}
-					renderItem={ ({ item: { id, name, phone, photo, customPhotoAvailable }}) => {
-						console.log(photo);
+					renderItem={ ({ item: { id, name, phone, photo }}) => {
 						if(searchFilter !== '') {
 							if(name.toLowerCase().search(searchFilter.toLowerCase()) < 0) {
 								return (
@@ -122,11 +121,11 @@ class Contacts extends React.Component {
 							<View style={ styles.contact }>
 
 								<View style={ styles.picBorder }>
-									{!customPhotoAvailable ?
+									{photo === undefined ?
 									<Image
 										style={ styles.profilePic }
 										resizeMode='cover'
-										source={ photo }
+										source={ require('../../resources/icons/default_pic.png') }
 									/>
 									:
 									<Image
@@ -140,7 +139,6 @@ class Contacts extends React.Component {
 									navigation.navigate('ContactDetails', {
 										navigation: navigation, id: id,
 										name: name, phone: phone, photo: photo,
-										customPhotoAvailable: customPhotoAvailable,
 										updateContacts: () => this.getAllContacts()
 									}
 								)}}>

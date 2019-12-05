@@ -29,14 +29,12 @@ class ContactDetails extends React.Component {
 	}
 
 	async modifyContactPhoto() {
-		console.log('open')
 		this.setState({
 			modifyPhoto: true,
 		});
 	}
 
 	cancelModifyContactPhoto() {
-		console.log('close')
 		this.setState({
 			modifyPhoto: false,
 		});
@@ -80,15 +78,13 @@ class ContactDetails extends React.Component {
 		const { navigation } = this.props;
 		const id = navigation.getParam('id');
 		const photo = navigation.getParam('photo');
-		const customPhotoAvailable = navigation.getParam('customPhotoAvailable');
 
-		console.log(photo);
 
 		return(
 			<View style={ styles.contactContainer }>
 				<TouchableOpacity onPress={ () => this.modifyContactPhoto() } >
 					<View style={ styles.picBorder }>
-						{!customPhotoAvailable ?
+						{!photo !== undefined ?
 						<Image
 							style={ styles.profilePic }
 							resizeMode='cover'
