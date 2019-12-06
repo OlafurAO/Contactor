@@ -3,7 +3,7 @@ import { StyleSheet } from 'react-native';
 export default StyleSheet.create({
 	container: {
     flex: 1,
-    backgroundColor: '#252c38',
+    backgroundColor: '#2F4F4F',
     //justifyContent: 'center',
 		alignItems: 'stretch',
   },
@@ -46,9 +46,10 @@ export default StyleSheet.create({
 		position: 'absolute',
 	  width: 100,
 	  height: 100,
-	  alignSelf: 'center',
+	  alignSelf: 'flex-end',
+		right: 50,
 		marginTop: 50,
-	  backgroundColor: '#d5e2e8'
+	  backgroundColor: '#2F4F4F'
 	},
 
 	textStyle:{

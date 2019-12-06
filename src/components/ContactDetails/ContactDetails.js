@@ -136,22 +136,26 @@ class ContactDetails extends React.Component {
 					<TouchableOpacity onPress={ () => this.submitContactModification(id, navigation)}>
 						<Text style ={ styles.textStyle}> Update </Text>
 					</TouchableOpacity>
+					<Text></Text>
+					<TouchableOpacity onPress={ () => this.callContact()}>
+						<Text style ={ styles.textStyle}> Call Contact </Text>
+					</TouchableOpacity>
 
 					{ this.state.modifyPhoto ?
 						<View style={ styles.photoOverlay }>
 							<TouchableOpacity onPress={ () => this.importPhoto() }>
-								<Text> Import Image </Text>
+								<Text style ={ styles.textStyle}> Import Image </Text>
 							</TouchableOpacity>
 
 							<TouchableOpacity onPress={ () => this.takePhoto() }>
-								<Text> Take Photo </Text>
+								<Text style ={ styles.textStyle}> Take Photo </Text>
 							</TouchableOpacity>
+
+
 						</View>
 					: null}
 				</View>
-				<TouchableOpacity onPress={ () => this.callContact()}>
-					<Text> Call Contact </Text>
-				</TouchableOpacity>
+
 			</View>
 		);
 	}
