@@ -104,6 +104,9 @@ export async function modifyContact(id, name, phone, photo, modifyPhoto) {
 			};
 
 			var contactString = JSON.stringify(newContact);
+			await FileSystem.deleteAsync(contactPath,  {
+				idempotent: true
+			});
 			await FileSystem.writeAsStringAsync(contactPath, contactString, {
 				encoding: FileSystem.EncodingType.UTF8
 			});

@@ -1,5 +1,6 @@
 import React from 'react';
 import { View, Text, TouchableOpacity, Image, TextInput } from 'react-native';
+import Communications from 'react-native-communications';
 import { modifyContact, deleteContact } from '../../services/contactService.js';
 import { takePhoto, importPhoto } from '../../services/imageService.js';
 import styles from './styles.js'
@@ -14,6 +15,12 @@ class ContactDetails extends React.Component {
 			newPhoto: navigation.getParam('photo'),
 			modifyPhoto: false,
 		}
+	}
+
+	callContact() {
+		const { navigation } = this.props;
+		const phone = navigation.getParam('phone');
+		Communications.phonecall(phone, false)
 	}
 
 	modifyContactName(name) {
@@ -87,61 +94,64 @@ class ContactDetails extends React.Component {
 
 		return(
 			<View style={ styles.container}>
-			<View style={ styles.contactContainer }>
-				<TouchableOpacity onPress={ () => this.modifyContactPhoto() } >
-					<View style={ styles.picBorder }>
-						{photo === undefined ?
-						<Image
-							style={ styles.profilePic }
-							resizeMode='cover'
-							source={ require('../../resources/icons/default_pic.png') }
+				<View style={ styles.contactContainer }>
+					<TouchableOpacity onPress={ () => this.modifyContactPhoto() } >
+						<View style={ styles.picBorder }>
+							{photo === undefined ?
+							<Image
+								style={ styles.profilePic }
+								resizeMode='cover'
+								source={ require('../../resources/icons/default_pic.png') }
+							/>
+							:
+							<Image
+								style={ styles.profilePic }
+								resizeMode='cover'
+								source={{uri: photo }}
+							/>}
+						</View>
+					</TouchableOpacity>
+
+					<TouchableOpacity>
+						<TextInput style={ styles.contactName }
+							value={ this.state.newName }
+							onChangeText={ name => this.modifyContactName(name) }
+							placeholder={ this.state.newName }
+							placeholderTextColor={ 'black' }
+							fontColor={ 'black' }
 						/>
-						:
-						<Image
-							style={ styles.profilePic }
-							resizeMode='cover'
-							source={{uri: photo }}
-						/>}
-					</View>
-				</TouchableOpacity>
+					</TouchableOpacity>
+					<TouchableOpacity>
+						<TextInput style={ styles.contactPhone }
+							value={ this.state.newPhone }
+							onChangeText={ name => this.modifyContactPhone(name) }
+							placeholder={ this.state.newPhone }
+							placeholderTextColor={ 'black' }
+							fontColor={ 'black' }
+						/>
+					</TouchableOpacity>
+					<TouchableOpacity onPress={ () => this.deleteContact(id, navigation)}>
+						<Text style ={ styles.textStyle}> Delete Contact </Text>
+					</TouchableOpacity>
+					<TouchableOpacity onPress={ () => this.submitContactModification(id, navigation)}>
+						<Text style ={ styles.textStyle}> Update </Text>
+					</TouchableOpacity>
 
-				<TouchableOpacity>
-					<TextInput style={ styles.contactName }
-						value={ this.state.newName }
-						onChangeText={ name => this.modifyContactName(name) }
-						placeholder={ this.state.newName }
-						placeholderTextColor={ 'black' }
-						fontColor={ 'black' }
-					/>
-				</TouchableOpacity>
-				<TouchableOpacity>
-					<TextInput style={ styles.contactPhone }
-						value={ this.state.newPhone }
-						onChangeText={ name => this.modifyContactPhone(name) }
-						placeholder={ this.state.newPhone }
-						placeholderTextColor={ 'black' }
-						fontColor={ 'black' }
-					/>
-				</TouchableOpacity>
-				<TouchableOpacity onPress={ () => this.deleteContact(id, navigation)}>
-					<Text style ={ styles.textStyle}> Delete Contact </Text>
-				</TouchableOpacity>
-				<TouchableOpacity onPress={ () => this.submitContactModification(id, navigation)}>
-					<Text style ={ styles.textStyle}> Update </Text>
-				</TouchableOpacity>
+					{ this.state.modifyPhoto ?
+						<View style={ styles.photoOverlay }>
+							<TouchableOpacity onPress={ () => this.importPhoto() }>
+								<Text> Import Image </Text>
+							</TouchableOpacity>
 
-				{ this.state.modifyPhoto ?
-					<View style={ styles.photoOverlay }>
-						<TouchableOpacity onPress={ () => this.importPhoto() }>
-							<Text> Import Image </Text>
-						</TouchableOpacity>
-
-						<TouchableOpacity onPress={ () => this.takePhoto() }>
-							<Text> Take Photo </Text>
-						</TouchableOpacity>
-					</View>
-				: null}
-			</View>
+							<TouchableOpacity onPress={ () => this.takePhoto() }>
+								<Text> Take Photo </Text>
+							</TouchableOpacity>
+						</View>
+					: null}
+				</View>
+				<TouchableOpacity onPress={ () => this.callContact()}>
+					<Text> Call Contact </Text>
+				</TouchableOpacity>
 			</View>
 		);
 	}

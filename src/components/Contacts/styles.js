@@ -13,7 +13,6 @@ export default StyleSheet.create({
 		height: 60,
 		flexDirection: 'row',
 		borderBottomWidth: 2,
-
 	},
 
 	inputBox: {
@@ -38,15 +37,19 @@ export default StyleSheet.create({
 		padding: 15,
 	},
 
-	createListText: {
+	contactName: {
 		color: '#C0C0C0',
-		alignSelf: 'flex-start',
 		fontSize: 20,
+		marginLeft: 10,
 	},
 
 	contact: {
 		flexDirection: 'row',
 		padding: 15,
+		borderBottomWidth: 2,
+		borderColor: 'white',
+		alignItems: 'center',
+		borderRadius: 10,
 	},
 
 	picBorder: {
@@ -55,8 +58,8 @@ export default StyleSheet.create({
 	},
 
 	profilePic: {
-		width: 30,
-		height: 30,
+		width: 50,
+		height: 50,
 		borderRadius: 150/2,
 		borderWidth: 2,
 	},

@@ -115,9 +115,13 @@ class Contacts extends React.Component {
 							}
 						}
 						return(
-
-							<View style={ styles.contact }>
-
+							<TouchableOpacity  style={ styles.contact } onPress={() => {
+								navigation.navigate('ContactDetails', {
+									navigation: navigation, id: id,
+									name: name, phone: phone, photo: photo,
+									updateContacts: () => this.getAllContacts()
+								}
+							)}}>
 								<View style={ styles.picBorder }>
 									{photo === undefined ?
 									<Image
@@ -132,17 +136,8 @@ class Contacts extends React.Component {
 										source={{uri: photo }}
 									/>}
 								</View>
-
-								<TouchableOpacity onPress={() => {
-									navigation.navigate('ContactDetails', {
-										navigation: navigation, id: id,
-										name: name, phone: phone, photo: photo,
-										updateContacts: () => this.getAllContacts()
-									}
-								)}}>
-									<Text style={ styles.createListText }> { name } </Text>
-								</TouchableOpacity>
-							</View>
+								<Text style={ styles.contactName }> { name } </Text>
+							</TouchableOpacity>
 						)
 					}}keyExtractor={ contact => contact.name}
 				/>
