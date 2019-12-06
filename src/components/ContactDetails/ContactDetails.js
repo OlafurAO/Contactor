@@ -36,14 +36,9 @@ class ContactDetails extends React.Component {
 	}
 
 	async modifyContactPhoto() {
+		const { modifyPhoto } = this.state;
 		this.setState({
-			modifyPhoto: true,
-		});
-	}
-
-	cancelModifyContactPhoto() {
-		this.setState({
-			modifyPhoto: false,
+			modifyPhoto: modifyPhoto ? false : true,
 		});
 	}
 
