@@ -47,7 +47,7 @@ export default StyleSheet.create({
 	  width: 100,
 	  height: 100,
 	  alignSelf: 'flex-end',
-		right: 50,
+		right: 30,
 		marginTop: 50,
 	  backgroundColor: '#2F4F4F'
 	},
